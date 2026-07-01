@@ -12,6 +12,7 @@ def style_background_home():
             background-color: #E0E3FF !important;
             padding: 2.5rem !important;
             border-radius: 5rem !important;
+        }
         </style>
         """
         ,unsafe_allow_html=True
@@ -23,7 +24,7 @@ def style_background_dashboard():
         """
         <style>
         .stApp {
-            background: #EOE3FF !important;
+            background: lightgray !important;
         }
         </style>
         """
@@ -66,27 +67,33 @@ def style_base_layout():
 
             button[kind="secondary"] {
                 border-radius: 1.5rem !important;
-                background: #EB459E !important;
+                background-color: #EB459E !important;
                 color: white !important;
                 padding: 10px 20px !important;
                 border: none !important;
                 transition: transform 0.25s ease-in-out !important;
             }
 
-            button[kind="secondary"]:hover {
-                transform: scale(1.05) !important;
-            }
 
             button[kind="primary"] {
                 border-radius: 1.5rem !important;
-                background: #5865f2 !important;
+                background-color: #5865f2 !important;
                 color: white !important;
                 padding: 10px 20px !important;
                 border: none !important;
                 transition: transform 0.25s ease-in-out !important;
             }
 
-            button[kind="primary"]:hover {
+            button[kind="tertiary"] {
+                border-radius: 1.5rem !important;
+                background-color: black !important;
+                color: white !important;
+                padding: 10px 20px !important;
+                border: none !important;
+                transition: transform 0.25s ease-in-out !important;
+            }
+
+            button:hover {
                 transform: scale(1.05) !important;
             }
         </style>

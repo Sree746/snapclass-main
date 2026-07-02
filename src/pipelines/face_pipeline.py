@@ -3,6 +3,7 @@ import numpy as np
 import face_recognition_models
 from sklearn.svm import SVC
 import streamlit as st
+import cv2
 
 
 from src.database.db import get_all_students
@@ -23,8 +24,19 @@ def load_dlib_models():
     return detector, sp, facerec
 
 def get_face_embeddings(image_np):
+    image_np = cv2.resize(
+        image_np,
+        None,
+        fx=2,
+        fy=2,
+        interpolation=cv2.INTER_LINEAR
+    )
+
     detector, sp, facerec = load_dlib_models()
+    st.write(image_np.shape)
+    st.write(image_np.dtype)
     faces = detector(image_np, 1)
+    st.write(f"Faces detected: {len(faces)}")
 
     encodings = []
 
@@ -52,14 +64,15 @@ def get_trained_model():
             y.append(student.get('student_id'))
 
     if len(X) == 0:
-        return 0
+        return None
     
     clf = SVC(kernel='linear', class_weight='balanced')
 
-    try:
+    if len(set(y)) >= 2:
         clf.fit(X, y)
-    except ValueError:
-        pass
+    else:
+        clf = None
+    
 
     return {'clf': clf, 'X':X, "y":y}
 
@@ -84,7 +97,7 @@ def predict_attendance(class_image_np):
     all_students = sorted(list(set(y_train)))
 
     for encoding in encodings:
-        if len(all_students)>=2:
+        if clf is not None:
             predicted_id = int(clf.predict([encoding])[0])
         else:
             predicted_id = int(all_students[0])

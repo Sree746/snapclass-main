@@ -3,7 +3,7 @@ from src.database.db import enroll_student_to_subject
 from src.database.config import supabase
 import time
 
-from src.database.db import create_attendance
+from src.database.db import create_attendance, check_attendance_exists
 
 def show_attendance_result(df, logs):
    
@@ -21,6 +21,15 @@ def show_attendance_result(df, logs):
     with col2:
         if(st.button('Confirm & Save', width='stretch', type='primary')):
             try:
+                already_taken = check_attendance_exists(
+                    logs[0]["subject_id"],
+                    logs[0]["timestamp"][:10]
+                )
+
+                if already_taken:
+                    st.error("Attendance already taken today.")
+                    return
+
                 create_attendance(logs)
                 st.toast("Attendance taken")
                 st.session_state.attendance_images = []

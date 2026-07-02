@@ -12,6 +12,7 @@ def create_subject_dialog(teacher_id):
     if st.button("Create Subject", type='primary', width='stretch'):
         if sub_id and sub_name and sub_section:
             try:
+                sub_id = sub_id.strip().upper()
                 create_subject(sub_id, sub_name, sub_section, teacher_id)
                 st.toast("Subject Created Successfully!")
                 st.rerun()

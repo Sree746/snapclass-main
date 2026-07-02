@@ -78,3 +78,14 @@ def create_attendance(logs):
 def get_attendance_for_teacher(teacher_id):
     response = supabase.table('attendance_logs').select('*, subjects!inner(*)').eq('subjects.teacher_id', teacher_id).execute()
     return response.data
+
+def check_attendance_exists(subject_id, date):
+    response = (
+        supabase.table("attendance_logs")
+        .select("*")
+        .eq("subject_id", subject_id)
+        .gte("timestamp", date)
+        .execute()
+    )
+
+    return len(response.data) > 0

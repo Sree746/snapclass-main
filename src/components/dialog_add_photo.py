@@ -7,6 +7,7 @@ import time
 @st.dialog("Capture or upload photos")
 def add_photos_dialog():
     
+    st.session_state.setdefault("attendance_images", [])
     st.write('Add classroom photos to scan for attendance')
 
     if 'photo_tab' not in st.session_state:

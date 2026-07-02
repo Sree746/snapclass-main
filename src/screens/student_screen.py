@@ -62,7 +62,7 @@ def student_dashboard():
 
         stats = stats_map.get(sid, {"total":0, "attended":0})
         def unenroll_button():
-                if st.button("Unenroll from this course", type='tertiary', width='stretch', icon=":material/delete_forever:"):
+                if st.button("Unenroll from this course",key=f"unenroll_{sid}", type='tertiary', width='stretch', icon=":material/delete_forever:"):
                     unenroll_student_to_subject(student_id, sid)
                     st.toast(f"Unenrolled from {sub['name']} successfully!")
                     time.sleep(1)
@@ -112,6 +112,9 @@ def student_screen():
     
     if photo_source:
         img = np.array(Image.open(photo_source))
+        st.write(img.shape)
+        st.write(img.dtype)
+        st.image(img)
 
         with st.spinner('AI is scanning..'):
             detected, all_ids, num_faces = predict_attendance(img)
@@ -157,15 +160,21 @@ def student_screen():
                     with st.spinner('Creating profile..'):
                         img = np.array(Image.open(photo_source))
                         encodings = get_face_embeddings(img)
+                        if len(encodings) != 1:
+                            st.error("Exactly one face must be visible.")
+                            return
                         if encodings:
                             face_emb = encodings[0].tolist()
 
                             voice_emb = None
                             if audio_data:
                                 voice_emb = get_voice_embedding(audio_data.read())
-
-                            response_data = create_student(new_name, face_embedding=face_emb, voice_embedding = voice_emb)
-
+                           
+                            try:
+                                response_data = create_student(new_name, face_embedding=face_emb, voice_embedding = voice_emb)
+                            except Exception as e:
+                                st.error(f"Database Error: {e}")
+                                return
 
                             if response_data:
                                 train_classifier()

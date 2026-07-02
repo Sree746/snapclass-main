@@ -60,6 +60,7 @@ def style_base_layout():
                 font-size: 2rem !important;
                 line-height: 1.0 !important;
                 margin-bottom: 0rem !important;
+                color: black !important;
             }
             h3, h4, p{
                 font-family: 'Outfit', sans-serif !important;

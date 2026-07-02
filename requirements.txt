@@ -22,4 +22,6 @@ pillow #for image processing
 librosa
 resemblyzer
 
+opencv-python-headless
+
 

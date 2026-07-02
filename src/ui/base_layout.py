@@ -63,9 +63,12 @@ def style_base_layout():
                 margin-bottom: 0rem !important;
                 color: black !important;
             }
-            h3, h4, p{
+            h3, h4{
                 font-family: 'Outfit', sans-serif !important;
                 color: black !important;
+            }
+            p{
+                font-family: 'Outfit', sans-serif !important;
             }
 
             button[kind="secondary"] {

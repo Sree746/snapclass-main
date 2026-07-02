@@ -54,6 +54,7 @@ def style_base_layout():
                 font-size: 3rem !important;
                 line-height: 1.1 !important;
                 margin-bottom: 0rem !important;
+                color: black !important;
             }
             h2 {
                 font-family: 'Climate Crisis', sans-serif !important;
@@ -64,6 +65,7 @@ def style_base_layout():
             }
             h3, h4, p{
                 font-family: 'Outfit', sans-serif !important;
+                color: black !important;
             }
 
             button[kind="secondary"] {

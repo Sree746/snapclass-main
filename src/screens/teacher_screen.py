@@ -272,7 +272,7 @@ def teacher_screen_login():
         header_dashboard()
     with c2:
         if st.button("Go back to Home", type="secondary", key='loginbackbtn', shortcut="control + backspace"):
-            st.session_state.teacher_login_type = None
+            st.session_state.login_type = None
             st.rerun()
 
     st.header("Login using password", text_alignment="center")
@@ -322,7 +322,7 @@ def teacher_screen_register():
         header_dashboard()
     with c2:
         if st.button("Go back to Home", type="secondary", key='registerbackbtn', shortcut="control + backspace"):
-            st.session_state.teacher_login_type = None
+            st.session_state.login_type = None
             st.rerun()
 
     st.header("Register your teacher profile", text_alignment="center")
